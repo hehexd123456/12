@@ -6,7 +6,7 @@ import { PokemonsService } from '../pokemons.service';
 @Component({
   selector: 'app-pokemon',
   templateUrl: './pokemon.component.html',
-  styleUrls: ['./pokemon.component.css']
+  styleUrls: ['./pokemon.component.css'],
 })
 export class PokemonComponent implements OnInit {
   id: number;
@@ -16,7 +16,7 @@ export class PokemonComponent implements OnInit {
   
   constructor(
     private route: ActivatedRoute, 
-    private PokemonsService: PokemonsService,
+    private pokemonsService: PokemonsService,
     private location: Location,
   ) { }
 
@@ -25,9 +25,9 @@ export class PokemonComponent implements OnInit {
       .subscribe(params => {
         this.id = params.id;
         this.getPokemon(params.id);
-      })
+      },
         error => console.log(error)
-      ;
+    );
   }
 
   onBack() {
@@ -37,7 +37,7 @@ export class PokemonComponent implements OnInit {
   getPokemon(id) {
     this.errorMessage = null;
     this.isFetching = true;
-    this.PokemonsService
+    this.pokemonsService
       .getPokemon(id)
       .subscribe(
         data => {

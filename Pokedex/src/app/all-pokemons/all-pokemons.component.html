@@ -12,13 +12,14 @@
         </a>
       </h3>
       <button
+        *ngIf="user"
         disabled="{{poke.date}}"
         class="{{!poke.date ? 'button button-active' : 'button button-disabled'}}"
         (click)="handleCatch(poke.id)"
       >
         {{poke.date ? 'catched' : 'catch'}}
       </button>
-      <span *ngIf="poke.date">
+      <span *ngIf="user && poke.date">
         {{poke.date}}
       </span>
     </li>

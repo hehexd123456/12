@@ -13,7 +13,6 @@
         [(ngModel)]="model.name"
         name="name"
       >
-      ????? {{model.name}}
     </div>
     <div class="form-group">
         <label for="password">
@@ -28,12 +27,14 @@
           [(ngModel)]="model.password"
           name="password"
         />
-        ????? {{model.password}}
     </div>
+    <p>
+      Already have an account? <a routerLink="/login">Log in</a>
+    </p>
     <button 
       (click)="onSubmit(model)"
       type="submit" 
-      class="btn btn-success"
+      class="btn"
     >
       Sign up
     </button>
