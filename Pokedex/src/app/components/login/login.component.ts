@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +9,19 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  submitted: boolean = false;
   loginForm: FormGroup;
   errorMessage: any = null;
-  nameValidators = [Validators.required, Validators.minLength(4), Validators.maxLength(15)];
-  passwordValidatos = [Validators.required, Validators.minLength(6), Validators.maxLength(15)];
+  nameValidators = [
+    Validators.required, 
+    Validators.minLength(4), 
+    Validators.maxLength(15)
+  ];
+  passwordValidatos = [
+    Validators.required, 
+    Validators.minLength(6), 
+    Validators.maxLength(15)
+  ];
 
   constructor(
     private userService: UserService,
@@ -27,13 +36,13 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  f() {
-    console.log(this.loginForm.controls);
+  get f() {
+    return this.loginForm.controls;
   }
 
-  onSubmit() {
-    console.log(this.loginForm);
-    return;
-    this.userService.login(this.loginForm.value)
+  onSubmit(): void {
+    this.submitted = true;
+    console.log(this.loginForm.controls);
+    // this.userService.login(this.loginForm.value)
   }
 }

@@ -2,7 +2,7 @@
     <form [formGroup]="loginForm" class="group">
       <div class="form-group group">
         <label for="name">
-          Name
+          Name*
         </label>
         <input
           type="text"
@@ -10,10 +10,15 @@
           class="form-control"
           placeholder="Choose a name"
         >
+        <div *ngIf="submitted && f.name.errors">
+          <p *ngIf="f.name.errors.required">Name is required</p>
+          <p *ngIf="f.name.errors.minlength">Too short</p>
+          <p *ngIf="f.name.errors.maxlength">Too big</p>
+        </div>
       </div>
       <div class="form-group group">
           <label for="password">
-            Password
+            Password*
           </label>
           <input
             type="password"
@@ -21,6 +26,11 @@
             class="form-control"
             placeholder="Create a password"
           />
+          <div *ngIf="submitted && f.password.errors">
+            <p *ngIf="f.password.errors.required">Password is required</p>
+            <p *ngIf="f.password.errors.minlength">Too short</p>
+            <p *ngIf="f.password.errors.maxlength">Too big</p>
+          </div>
       </div>
       <p>
         New to Pokedex? <a routerLink="/signup">Sign up</a>

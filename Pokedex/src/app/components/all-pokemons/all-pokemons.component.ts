@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonsService } from '../pokemons.service';
-import { UserService } from '../user.service';
-import { Pokemon } from '../pokemon';
+import { PokemonsService } from '../../pokemons.service';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-all-pokemons',
@@ -9,7 +8,7 @@ import { Pokemon } from '../pokemon';
   styleUrls: ['./all-pokemons.component.css'],
 })
 export class AllPokemonsComponent implements OnInit {
-  user;
+  user: any;
   pokemons = [];
   page: number = 1;
   isFetching: boolean = false;
