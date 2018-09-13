@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import { User } from './User';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private user: any = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-  public userEmitter = this.user.asObservable();
+  public user: any = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+
   userEmitChange(user: any) {
     this.user.next(user);
   }
+  
   _uri = 'http://localhost:3001/api/auth'
   _httpOptions = {
     headers: new HttpHeaders({
@@ -30,11 +31,7 @@ export class UserService {
   }
 
   login(user: User) {
-    return this.http.post(`${this._uri}/login`, user, this._httpOptions).subscribe(data => {
-      localStorage.setItem('user', JSON.stringify(data));
-      this.userEmitChange(data);
-      this.router.navigate(['/all-pokemons']);
-    });
+    return this.http.post(`${this._uri}/login`, user, this._httpOptions);
   }
 
   logout() {

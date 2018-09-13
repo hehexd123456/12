@@ -11,7 +11,7 @@ export class PageNotFoundComponent {
     private location: Location,
   ) { }
 
-  onBack() {
+  onBack(): void {
     this.location.back();
   }
 }

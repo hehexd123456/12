@@ -42,5 +42,8 @@
       >
         Log in
       </button>
+      <p *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
     </form>
   </div>

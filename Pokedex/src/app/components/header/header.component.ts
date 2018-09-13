@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../user.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +10,9 @@ export class HeaderComponent {
   user;
   constructor(
     private userService: UserService,
-  ) { this.userService.userEmitter.subscribe(user => { this.user = user }) }
+  ) { this.userService.user.subscribe(user => { this.user = user }) }
 
-  logout() {
+  logout(): void {
     this.userService.logout();
   }
 }

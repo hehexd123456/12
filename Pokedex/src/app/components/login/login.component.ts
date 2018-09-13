@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../user.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +12,16 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   loginForm: FormGroup;
   errorMessage: any = null;
+
   nameValidators = [
     Validators.required, 
     Validators.minLength(4), 
-    Validators.maxLength(15)
+    Validators.maxLength(15),
   ];
   passwordValidatos = [
     Validators.required, 
     Validators.minLength(6), 
-    Validators.maxLength(15)
+    Validators.maxLength(15),
   ];
 
   constructor(
@@ -42,7 +43,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log(this.loginForm.controls);
-    // this.userService.login(this.loginForm.value)
+    if (this.loginForm.invalid) return;
+    this.userService.login(this.loginForm.value).subscribe(
+      data => {
+        localStorage.setItem('user', JSON.stringify(data));
+        this.userService.userEmitChange(data);
+        this.router.navigate(['/all-pokemons']);
+      },
+      error => {
+        this.errorMessage = error;
+      }
+    )
   }
 }

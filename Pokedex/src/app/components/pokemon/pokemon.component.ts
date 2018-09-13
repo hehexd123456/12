@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { PokemonsService } from '../../pokemons.service';
+import { PokemonsService } from '../../shared/services/pokemons.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -20,21 +20,24 @@ export class PokemonComponent implements OnInit {
     private location: Location,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params
-      .subscribe(params => {
-        this.id = params.id;
-        this.getPokemon(params.id);
+      .subscribe(
+        params => {
+          this.id = params.id;
+          this.getPokemon(params.id);
       },
-        error => console.log(error)
+        error => {
+          this.errorMessage = error;
+        }
     );
   }
 
-  onBack() {
+  onBack(): void {
     this.location.back();
   }
 
-  getPokemon(id) {
+  getPokemon(id): void {
     this.errorMessage = null;
     this.isFetching = true;
     this.pokemonsService

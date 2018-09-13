@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonsService } from '../../pokemons.service';
-import { UserService } from '../../user.service';
-
+import { PokemonsService } from '../../shared/services/pokemons.service';
+import { UserService } from '../../shared/services/user.service';
+import { Pokemon } from '../../shared/models/pokemon';
+ 
 @Component({
   selector: 'app-all-pokemons',
   templateUrl: './all-pokemons.component.html',
@@ -9,7 +10,7 @@ import { UserService } from '../../user.service';
 })
 export class AllPokemonsComponent implements OnInit {
   user: any;
-  pokemons = [];
+  pokemons: Pokemon[] = [];
   page: number = 1;
   isFetching: boolean = false;
   isFetchedAll: boolean = false;
@@ -18,13 +19,13 @@ export class AllPokemonsComponent implements OnInit {
   constructor(
     private pokemonsService: PokemonsService,
     private userService: UserService,
-  ) { this.userService.userEmitter.subscribe(data => this.user = data) }
+  ) { this.userService.user.subscribe(data => this.user = data) }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getPokemons();
   }
 
-  getPokemons() {
+  getPokemons(): void {
     this.isFetching = true;
     this.pokemonsService
       .getAllPokemons(this.page)
@@ -42,7 +43,7 @@ export class AllPokemonsComponent implements OnInit {
       )
   }
 
-  handleCatch(id: number) {
+  handleCatch(id: number): void {
     this.pokemonsService
       .catchPokemon(id)
       .subscribe(

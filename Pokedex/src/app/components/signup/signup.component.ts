@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../user.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -43,11 +43,14 @@ export class SignupComponent implements OnInit {
   
   onSubmit() {
     this.submitted = true;
+
+    if (this.loginForm.invalid) return;
+
     this.userService
       .signup(this.loginForm.value)
       .subscribe(
         data => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/all-pokemons']);
         },
         error => {
           this.errorMessage = error.error;

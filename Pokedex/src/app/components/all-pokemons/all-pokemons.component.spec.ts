@@ -27,4 +27,10 @@ describe('AllPokemonsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should have empty chelebox'`, async(() => {
+    const fixture = TestBed.createComponent(AllPokemonsComponent);
+    const component = fixture.debugElement.componentInstance;
+    expect(component.pokemons).toEqual([]);
+  }));
 });
